@@ -1,0 +1,82 @@
+//
+//  ObjectifPoidsView.swift
+//  ZakFit
+//
+//  Created by Emma on 29/11/2025.
+//
+
+import SwiftUI
+
+struct ObjectifPoidsView: View {
+    @Binding var onBoardingVM: OnboardingViewmodel
+    var body: some View {
+        VStack{
+            HStack{
+                Spacer()
+                Text("Objectif de poids")
+                    .bold()
+                
+                Picker( "poids", selection: $onBoardingVM.objectifPoid){
+                    ForEach(WeightObjectifsEnum.allCases, id: \.self){ obj in
+                        
+                        Text(obj.rawValue)
+                            
+                        
+                    }
+                    
+                }.tint(.text)
+                    .padding(8)
+                    .frame(width: 190)
+                    .background(.secondaire)
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                    .shadow(color: Color.shadow.opacity(0.25), radius: 5.2, x: 1, y: 1)
+                
+               Spacer()
+            }
+            
+            if onBoardingVM.objectifPoid != .maintainWeight{
+                
+                HStack{
+                    Text(onBoardingVM.objectifPoid == .loseWeight ? "Perdre" : "Gagner")
+                    
+                    TextField("Nombre de kilos", value: $onBoardingVM.nbKilo, format: .number)
+                        .padding(8)
+                        .background(.secondaire)
+                        .clipShape(RoundedRectangle(cornerRadius: 20))
+                        .shadow(color: Color.shadow.opacity(0.25), radius: 5.2, x: 1, y: 1)
+                        .frame(width: 60)
+                        .multilineTextAlignment(.center)
+                        .foregroundStyle(.text)
+                    
+                    Text("Kg en")
+                    
+                    Picker( "Timing poids", selection: $onBoardingVM.timingObjPoid){
+                        ForEach(TimingEnum.allCases, id: \.self){ obj in
+                            
+                            Text(obj.rawValue)
+                                
+                            
+                        }
+                        
+                    }.tint(.text)
+                        .padding(8)
+                        .frame(width: 140)
+                        .background(.secondaire)
+                        .clipShape(RoundedRectangle(cornerRadius: 20))
+                        .shadow(color: Color.shadow.opacity(0.25), radius: 5.2, x: 1, y: 1)
+                        
+                        
+                }
+                
+            }
+        }
+        .padding(15)
+        .background(.greenApp)
+        .clipShape(RoundedRectangle(cornerRadius: 35))
+        .foregroundStyle(.backgroundApp)
+    }
+}
+
+#Preview {
+    ObjectifPoidsView(onBoardingVM: .constant(OnboardingViewmodel()))
+}

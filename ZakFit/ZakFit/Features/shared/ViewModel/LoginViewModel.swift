@@ -146,6 +146,46 @@ print(body)
             throw URLError(.badServerResponse)
         }
     }
+    
+    func updateCurrentUser(with fields: [String: Any]) {
+        
+        guard let token = token,
+              let url = URL(string: "http://localhost:8080/user") else { return }
+        
+
+
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "PATCH"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        
+        request.httpBody = try? JSONSerialization.data(withJSONObject: fields)
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error {
+                print("Erreur update:", error)
+                return
+            }
+            if let data = data {
+                
+//                let jsonString = String(data: data, encoding: .utf8)
+//                print(jsonString ?? "No JSON")
+
+                do {
+                    let updatedUser = try JSONDecoder().decode(User.self, from: data)
+                    DispatchQueue.main.async {
+                        self.currentUser = updatedUser
+                    }
+                    
+
+                } catch {
+                    print("Erreur décodage update:", error)
+                }
+            }
+        }.resume()
+    }
+    
 }
 
 

@@ -18,8 +18,15 @@ struct ContentView: View {
                 
                 if loginVM.isAuthenticated{
                     //ajouter condition
+                    if let user = loginVM.currentUser{
+                        if user.isOnBoardCompleted{
+                            
+                        }
+                        else{
+                            OnBoardingView()
+                        }
+                    }
                     
-                    OnBoardingView()
                 }
                 else{
                     authentificationView()

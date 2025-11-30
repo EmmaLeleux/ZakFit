@@ -27,6 +27,13 @@ struct User: Codable, Identifiable, Equatable {
     var nbTraining: Int
     var trainingDuration: Int
     var calByDay: Int
-    
+    var genre: String
+    var objLipides: Int
+    var objProtein: Int
+    var objGlucides: Int
+    var frequenceEntrainement: Int
+    var minProgression: Int
+    var timingProgression: String
+    var isOnBoardCompleted: Bool
     
 }
