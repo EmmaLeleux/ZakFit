@@ -16,7 +16,7 @@ struct OnboardingPage5: View {
                 .bold()
             
             ScrollView{
-                ObjectifActivity(sport: $onBoardingVM.sport, objCal: $onBoardingVM.objCal, frequenceEntrainement: $onBoardingVM.frequenceEntrainement, trainingDuration: $onBoardingVM.trainingDuration, timingObjSport: $onBoardingVM.timingObjSport, minProgression: $onBoardingVM.minProgression, timingProgression: $onBoardingVM.timingProgression)
+                ObjectifActivity(sport: $onBoardingVM.sport, objCal: $onBoardingVM.objCaloriesBrulees, frequenceEntrainement: $onBoardingVM.frequenceEntrainement, trainingDuration: $onBoardingVM.trainingDuration, timingObjSport: $onBoardingVM.timingObjSport, minProgression: $onBoardingVM.minProgression, timingProgression: $onBoardingVM.timingProgression)
             }
             Spacer()
             

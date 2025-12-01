@@ -48,6 +48,36 @@ class LoginViewModel {
             }
         }
     
+    func fetchUser() {
+        guard let url = URL(string: "http://localhost:8080/user") else {
+            print("Mauvais URL")
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if let data = data {
+                do{
+                    let decodedUser = try JSONDecoder().decode(User.self, from: data)
+                    DispatchQueue.main.async {
+                        self.currentUser = decodedUser
+                    }
+                }
+                catch {
+                    print("Error decoding: \(error)")
+                }
+            }
+            else if let error {
+                print("Error: \(error)")
+            }
+        }
+        .resume()
+    }
+    
     
     func login(email: String, password: String) {
         guard let url = URL(string: "http://localhost:8080/user/login") else {
@@ -68,7 +98,7 @@ class LoginViewModel {
         
         do {
             //envoie le json
-print(body)
+
             request.httpBody = try JSONEncoder().encode(body)
         } catch {
             print("Erreur encodage body: \(error)")
@@ -78,8 +108,8 @@ print(body)
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let data {
                 do {
-//                    let jsonString = String(data: data, encoding: .utf8)
-//                                    print(jsonString ?? "No JSON")
+                    let jsonString = String(data: data, encoding: .utf8)
+                                    print(jsonString ?? "No JSON")
                     //decode la réponse de la route
                     let decoded = try JSONDecoder().decode(LoginResponse.self, from: data)
                     DispatchQueue.main.async {

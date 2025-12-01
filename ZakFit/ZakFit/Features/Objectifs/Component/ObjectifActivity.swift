@@ -71,6 +71,7 @@ struct ObjectifActivity: View {
                     .frame(width: 60)
                     .multilineTextAlignment(.center)
                     .foregroundStyle(.text)
+                Text("min")
             }
             
             HStack{
@@ -86,7 +87,7 @@ struct ObjectifActivity: View {
                     
                 }.tint(.text)
                     .padding(8)
-                    .frame(width: 140)
+                    .frame(width: 150)
                     .background(.secondaire)
                     .clipShape(RoundedRectangle(cornerRadius: 20))
                     .shadow(color: Color.shadow.opacity(0.25), radius: 5.2, x: 1, y: 1)
@@ -123,7 +124,7 @@ struct ObjectifActivity: View {
                     
                 }.tint(.text)
                     .padding(8)
-                    .frame(width: 140)
+                    .frame(width: 150)
                     .background(.secondaire)
                     .clipShape(RoundedRectangle(cornerRadius: 20))
                     .shadow(color: Color.shadow.opacity(0.25), radius: 5.2, x: 1, y: 1)

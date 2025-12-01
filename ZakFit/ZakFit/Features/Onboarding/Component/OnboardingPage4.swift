@@ -15,9 +15,9 @@ struct OnboardingPage4: View {
                 .font(.title2)
                 .bold()
             
-            ObjectifPoidsView(onBoardingVM: $onBoardingVM)
+            ObjectifPoidsView(objectifPoid: $onBoardingVM.objectifPoid, nbKilo: $onBoardingVM.nbKilo, timingObjPoid: $onBoardingVM.timingObjPoid)
                 .padding(.bottom)
-            ObjectifCalView(onBoardingVM: $onBoardingVM)
+            ObjectifCalView(objCal: $onBoardingVM.objCal, objLipides: $onBoardingVM.objLipides, objGlucides: $onBoardingVM.objGlucides, objProtein: $onBoardingVM.objProtein)
             
             Spacer()
             

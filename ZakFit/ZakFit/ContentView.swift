@@ -17,15 +17,56 @@ struct ContentView: View {
             VStack{
                 
                 if loginVM.isAuthenticated{
-                    //ajouter condition
+                    
                     if let user = loginVM.currentUser{
                         if user.isOnBoardCompleted{
+                            
+                            TabView{
+                                
+                                
+                                ProfilView(userVM: UserViewModel(user: user))
+                                    .tabItem {
+                                        Image("IconDashboard")
+                                            
+                                        Text("Dashboard")
+                                    }
+                                
+                                
+                                ProfilView(userVM: UserViewModel(user: user))
+                                    .tabItem {
+                                        Image(systemName: "rectangle.and.pencil.and.ellipsis")
+                                            
+                                        Text("Rapports")
+                                    }
+                                
+                                
+                                ProfilView(userVM: UserViewModel(user: user))
+                                    .tabItem {
+                                        Image(systemName: "figure.stairs")
+                                        
+                                        Text("Activités")
+                                    }
+                                
+                                
+                                
+                                ProfilView(userVM: UserViewModel(user: user))
+                                    .tabItem {
+                                        Image(systemName: "fork.knife")
+
+                                        Text("Repas")
+                                    }
+                            }
+                            .tint(.greenApp)
+                            .foregroundStyle(.greenApp)
+                            
                             
                         }
                         else{
                             OnBoardingView()
                         }
                     }
+                    
+                    
                     
                 }
                 else{

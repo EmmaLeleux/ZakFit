@@ -8,7 +8,10 @@
 import SwiftUI
 
 struct ObjectifCalView: View {
-    @Binding var onBoardingVM: OnboardingViewmodel
+    @Binding var objCal: Int
+    @Binding var objLipides: Int
+    @Binding var objGlucides: Int
+    @Binding var objProtein: Int
     var body: some View {
         VStack(spacing: 30){
             Text("Objectif calorique journalier")
@@ -18,7 +21,7 @@ struct ObjectifCalView: View {
                 Spacer()
                 Text("Atteindre")
                 
-                TextField("Objectif calorique", value: $onBoardingVM.objCal, format: .number)
+                TextField("Objectif calorique", value: $objCal, format: .number)
                     .padding(8)
                     .background(.secondaire)
                     .clipShape(RoundedRectangle(cornerRadius: 20))
@@ -34,7 +37,7 @@ struct ObjectifCalView: View {
             
             HStack(spacing: 30){
                 VStack{
-                    TextField("Objectif lipide", value: $onBoardingVM.objLipides, format: .number)
+                    TextField("Objectif lipide", value: $objLipides, format: .number)
                         .padding(8)
                         .background(.secondaire)
                         .clipShape(RoundedRectangle(cornerRadius: 20))
@@ -47,7 +50,7 @@ struct ObjectifCalView: View {
                         .multilineTextAlignment(.center)
                 }
                 VStack{
-                    TextField("Objectif glucide", value: $onBoardingVM.objGlucides, format: .number)
+                    TextField("Objectif glucide", value: $objGlucides, format: .number)
                         .padding(8)
                         .background(.secondaire)
                         .clipShape(RoundedRectangle(cornerRadius: 20))
@@ -60,7 +63,7 @@ struct ObjectifCalView: View {
                         .multilineTextAlignment(.center)
                 }
                 VStack{
-                    TextField("Objectif lipide", value: $onBoardingVM.objProtein, format: .number)
+                    TextField("Objectif lipide", value: $objProtein, format: .number)
                         .padding(8)
                         .background(.secondaire)
                         .clipShape(RoundedRectangle(cornerRadius: 20))
@@ -83,5 +86,5 @@ struct ObjectifCalView: View {
 }
 
 #Preview {
-    ObjectifCalView(onBoardingVM: .constant(OnboardingViewmodel()))
+    ObjectifCalView(objCal: .constant(1500), objLipides: .constant(70), objGlucides: .constant(200), objProtein: .constant(20))
 }

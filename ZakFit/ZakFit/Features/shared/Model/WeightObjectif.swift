@@ -11,6 +11,6 @@ struct WeightObjectif: Codable {
     var id: UUID
     var weightObjectif: Double
     var timing: String
-    var startDate: Date
-    var finalDate: Date
+    var startDate: String
+    var finalDate: String
 }

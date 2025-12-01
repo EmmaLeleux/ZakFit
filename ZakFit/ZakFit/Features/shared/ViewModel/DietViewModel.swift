@@ -11,7 +11,7 @@ import Observation
 @Observable
 class DietViewModel{
     var diets: [Diet] = []
-   
+    var dietsFetch: [DietEnum] = []
 
     
     var token: String? {
@@ -52,6 +52,9 @@ class DietViewModel{
                     let decodedDiets = try JSONDecoder().decode([Diet].self, from: data)
                     DispatchQueue.main.async {
                         self.diets = decodedDiets
+                        self.dietsFetch = self.diets.map{
+                            DietEnum(rawValue: $0.name) ?? .flexitarien
+                        }
                     }
                 }
                 catch {
@@ -108,6 +111,42 @@ class DietViewModel{
                 }
             }
         }.resume()
+    }
+    
+    func deleteDiet(obj : Diet){
+        guard let token = token
+        else {
+            print("mauvais token")
+            
+            return }
+        
+        guard let url = URL(string: "http://localhost:8080/diet/\(obj.id)")
+        else {
+            print("mauvais url")
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+                if let error = error {
+                    print("erreur:", error)
+                    return
+                }
+
+                if let httpResponse = response as? HTTPURLResponse {
+                    print("status:", httpResponse.statusCode)
+                }
+
+                if let data = data {
+                    print("réponse:", String(data: data, encoding: .utf8) ?? "vide")
+                }
+
+            }.resume()
     }
     
     private func saveToken(_ token: String) {

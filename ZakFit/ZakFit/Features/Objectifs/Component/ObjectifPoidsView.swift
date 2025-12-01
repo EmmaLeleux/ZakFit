@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct ObjectifPoidsView: View {
-    @Binding var onBoardingVM: OnboardingViewmodel
+    @Binding var objectifPoid: WeightObjectifsEnum
+    @Binding var nbKilo: Double
+    @Binding var timingObjPoid: TimingEnum
     var body: some View {
         VStack{
             HStack{
@@ -16,7 +18,7 @@ struct ObjectifPoidsView: View {
                 Text("Objectif de poids")
                     .bold()
                 
-                Picker( "poids", selection: $onBoardingVM.objectifPoid){
+                Picker( "poids", selection: $objectifPoid){
                     ForEach(WeightObjectifsEnum.allCases, id: \.self){ obj in
                         
                         Text(obj.rawValue)
@@ -34,12 +36,12 @@ struct ObjectifPoidsView: View {
                Spacer()
             }
             
-            if onBoardingVM.objectifPoid != .maintainWeight{
+            if objectifPoid != .maintainWeight{
                 
                 HStack{
-                    Text(onBoardingVM.objectifPoid == .loseWeight ? "Perdre" : "Gagner")
+                    Text(objectifPoid == .loseWeight ? "Perdre" : "Gagner")
                     
-                    TextField("Nombre de kilos", value: $onBoardingVM.nbKilo, format: .number)
+                    TextField("Nombre de kilos", value: $nbKilo, format: .number)
                         .padding(8)
                         .background(.secondaire)
                         .clipShape(RoundedRectangle(cornerRadius: 20))
@@ -50,7 +52,7 @@ struct ObjectifPoidsView: View {
                     
                     Text("Kg en")
                     
-                    Picker( "Timing poids", selection: $onBoardingVM.timingObjPoid){
+                    Picker( "Timing poids", selection: $timingObjPoid){
                         ForEach(TimingEnum.allCases, id: \.self){ obj in
                             
                             Text(obj.rawValue)
@@ -60,7 +62,7 @@ struct ObjectifPoidsView: View {
                         
                     }.tint(.text)
                         .padding(8)
-                        .frame(width: 140)
+                        .frame(width: 150)
                         .background(.secondaire)
                         .clipShape(RoundedRectangle(cornerRadius: 20))
                         .shadow(color: Color.shadow.opacity(0.25), radius: 5.2, x: 1, y: 1)
@@ -78,5 +80,5 @@ struct ObjectifPoidsView: View {
 }
 
 #Preview {
-    ObjectifPoidsView(onBoardingVM: .constant(OnboardingViewmodel()))
+    ObjectifPoidsView(objectifPoid: .constant(.gainWeight), nbKilo: .constant(32), timingObjPoid: .constant(.troisMois))
 }
