@@ -37,7 +37,7 @@ class DietViewModel{
     func fetchDiets(){
         guard let token,
               let url = URL(string: "http://localhost:8080/diet") else {
-            print("mauvais url get scenarios")
+            print("mauvais url")
             return }
         
         

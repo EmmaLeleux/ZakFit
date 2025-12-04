@@ -164,6 +164,10 @@ class LoginViewModel {
                 self.errorMessage = "Veuillez entrer un email valide"
                 return
             }
+            if email.count < 8{
+                self.errorMessage = "Le mot de passe doit contenir au moins 8 caractères"
+                return
+            }
         }
         let encoder = JSONEncoder()
         request.httpBody = try encoder.encode(payload)

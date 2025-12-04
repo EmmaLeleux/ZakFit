@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State var loginVM = LoginViewModel()
+    //@State var mealVM: MealViewModel = MealViewModel()
     var body: some View {
         ZStack{
             Color.backgroundApp
@@ -49,7 +50,7 @@ struct ContentView: View {
                                 
                                 
                                 
-                                ProfilView(userVM: UserViewModel(user: user))
+                                MealsView()
                                     .tabItem {
                                         Image(systemName: "fork.knife")
 
@@ -75,6 +76,7 @@ struct ContentView: View {
             }
         }
         .environment(loginVM)
+        //.environment(mealVM)
     }
 }
 
