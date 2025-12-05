@@ -55,7 +55,7 @@ struct InscriptionView: View {
                 }
                 Button(action:{
                     Task{
-                        try await loginVM.createUser(lastname: connexionVM.lastname, firstname: connexionVM.firstname, email: connexionVM.email, password: connexionVM.mdp)
+                        try await loginVM.createUser(lastname: connexionVM.lastname, firstname: connexionVM.firstname, email: connexionVM.email, password: connexionVM.mdp, confirmMDP: connexionVM.mdpconfirm)
                     }
                 }, label: {
                     Text("S'inscrire")

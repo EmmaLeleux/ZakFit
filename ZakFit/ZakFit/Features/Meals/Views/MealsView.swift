@@ -12,7 +12,7 @@ struct MealsView: View {
     @State private var date = Date()
     @State var mealVM: MealViewModel = MealViewModel()
     var body: some View {
-        NavigationStack{
+       
             ZStack {
                 
                 Color.backgroundApp
@@ -85,7 +85,7 @@ struct MealsView: View {
                 }
                 
             }
-        }
+        
         .foregroundStyle(.text)
         .environment(mealVM)
         .task{

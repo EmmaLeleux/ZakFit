@@ -47,7 +47,7 @@ struct CreateIngredientView: View {
                 
                 HStack{
                        
-                    TextField("age", value: $ingredientVM.calories , format: .number)
+                    TextField("cal", value: $ingredientVM.calories , format: .number)
                         .padding()
                         .frame(width: 100)
                         .background(.secondaire)
@@ -63,7 +63,7 @@ struct CreateIngredientView: View {
                 
                 HStack{
                        
-                    TextField("age", value: $ingredientVM.lipides , format: .number)
+                    TextField("lipides", value: $ingredientVM.lipides , format: .number)
                         .padding()
                         .frame(width: 100)
                         .background(.secondaire)
@@ -79,7 +79,7 @@ struct CreateIngredientView: View {
                 
                 HStack{
                        
-                    TextField("age", value: $ingredientVM.protein , format: .number)
+                    TextField("protéines", value: $ingredientVM.protein , format: .number)
                         .padding()
                         .frame(width: 100)
                         .background(.secondaire)
@@ -95,7 +95,7 @@ struct CreateIngredientView: View {
                 
                 HStack{
                        
-                    TextField("age", value: $ingredientVM.glucides , format: .number)
+                    TextField("glucides", value: $ingredientVM.glucides , format: .number)
                         .padding()
                         .frame(width: 100)
                         .background(.secondaire)

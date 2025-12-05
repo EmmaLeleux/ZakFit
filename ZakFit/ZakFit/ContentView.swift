@@ -9,74 +9,76 @@ import SwiftUI
 
 struct ContentView: View {
     @State var loginVM = LoginViewModel()
-    //@State var mealVM: MealViewModel = MealViewModel()
+    
     var body: some View {
         ZStack{
             Color.backgroundApp
                 .ignoresSafeArea()
             
-            VStack{
-                
-                if loginVM.isAuthenticated{
+            
+                VStack{
                     
-                    if let user = loginVM.currentUser{
-                        if user.isOnBoardCompleted{
-                            
-                            TabView{
-                                
-                                
-                                ProfilView(userVM: UserViewModel(user: user))
-                                    .tabItem {
-                                        Image("IconDashboard")
-                                            
-                                        Text("Dashboard")
-                                    }
-                                
-                                
-                                ProfilView(userVM: UserViewModel(user: user))
-                                    .tabItem {
-                                        Image(systemName: "rectangle.and.pencil.and.ellipsis")
-                                            
-                                        Text("Rapports")
-                                    }
-                                
-                                
-                                ProfilView(userVM: UserViewModel(user: user))
-                                    .tabItem {
-                                        Image(systemName: "figure.stairs")
+                    if loginVM.isAuthenticated{
+                        NavigationStack {
+                            if let user = loginVM.currentUser{
+                                if user.isOnBoardCompleted{
+                                    
+                                    TabView{
                                         
-                                        Text("Activités")
+                                        
+                                        DashboardView()
+                                            .tabItem {
+                                                Image("IconDashboard")
+                                                
+                                                Text("Dashboard")
+                                            }
+                                        
+                                        
+                                        RapportView()
+                                            .tabItem {
+                                                Image(systemName: "rectangle.and.pencil.and.ellipsis")
+                                                
+                                                Text("Rapports")
+                                            }
+                                        
+                                        
+                                        ActivityView()
+                                            .tabItem {
+                                                Image(systemName: "figure.stairs")
+                                                
+                                                Text("Activités")
+                                            }
+                                        
+                                        
+                                        
+                                        MealsView()
+                                            .tabItem {
+                                                Image(systemName: "fork.knife")
+                                                
+                                                Text("Repas")
+                                            }
                                     }
-                                
-                                
-                                
-                                MealsView()
-                                    .tabItem {
-                                        Image(systemName: "fork.knife")
-
-                                        Text("Repas")
-                                    }
+                                    .tint(.greenApp)
+                                    .foregroundStyle(.greenApp)
+                                    
+                                    
+                                }
+                                else{
+                                    OnBoardingView()
+                                }
                             }
-                            .tint(.greenApp)
-                            .foregroundStyle(.greenApp)
                             
                             
-                        }
-                        else{
-                            OnBoardingView()
                         }
                     }
-                    
-                    
-                    
+                    else{
+                        authentificationView()
+                    }
                 }
-                else{
-                    authentificationView()
-                }
-            }
+            
         }
         .environment(loginVM)
-        //.environment(mealVM)
+      
     }
 }
 

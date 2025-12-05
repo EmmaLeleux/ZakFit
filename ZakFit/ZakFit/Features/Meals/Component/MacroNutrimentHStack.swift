@@ -15,7 +15,7 @@ struct MacroNutrimentHStack: View {
         HStack{
             Circle().fill(color)
                 .frame(width: 15, height: 15)
-            Text("\(quantity) \(macroNutriment)")
+            Text("\(quantity)g \(macroNutriment)")
                 .font(.system(size: 13))
                 .bold()
         }

@@ -10,14 +10,17 @@ import SwiftUI
 struct OnboardingPage3: View {
     @Binding var onBoardingVM: OnboardingViewmodel
     var body: some View {
-        VStack(alignment: .leading) {
-            Text("Quel est votre régime alimentaire ?")
-                .font(.title2)
-                .bold()
-            
-            RegimeAlimentaireView(diets: $onBoardingVM.diets)
-            .padding(.vertical)
-            Spacer()
+        ZStack {
+            Color.backgroundApp.ignoresSafeArea()
+            VStack(alignment: .leading) {
+                Text("Quel est votre régime alimentaire ?")
+                    .font(.title2)
+                    .bold()
+                
+                RegimeAlimentaireView(diets: $onBoardingVM.diets)
+                    .padding(.vertical)
+                Spacer()
+            }
         }
     }
 }

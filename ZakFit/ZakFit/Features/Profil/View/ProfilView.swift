@@ -17,9 +17,23 @@ struct ProfilView: View {
         ZStack{
             Color.backgroundApp
                 .ignoresSafeArea()
+            
+          
+                
                 ScrollView{
+                    
                     if let user = loginVM.currentUser{
-                        
+                        HStack{
+                            Spacer()
+                            
+                            
+                            NavigationLink(destination: {
+                                ParametersView()
+                            }, label: {
+                                Image(.engrenage)
+                            })
+                            
+                        }
                         Button(action: {
                             userVM.popUpImage.toggle()
                         }, label:{
@@ -162,13 +176,13 @@ struct ProfilView: View {
                 .scrollIndicators(.hidden)
                 
                 
-            .task{
-                await loadData()
-                
-                
-                
-                
-            }
+                .task{
+                    await loadData()
+                    
+                    
+                    
+                    
+                }
             .padding(.horizontal)
             
             if userVM.popUpImage{

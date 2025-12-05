@@ -140,7 +140,7 @@ class LoginViewModel {
             currentUser = nil
         }
     
-    func createUser(lastname: String, firstname: String, email: String, password: String) async throws {
+    func createUser(lastname: String, firstname: String, email: String, password: String, confirmMDP: String) async throws {
         guard let url = URL(string: "http://localhost:8080/user") else {
             throw URLError(.badURL)
         }
@@ -164,8 +164,13 @@ class LoginViewModel {
                 self.errorMessage = "Veuillez entrer un email valide"
                 return
             }
-            if email.count < 8{
+            if password.count < 8{
                 self.errorMessage = "Le mot de passe doit contenir au moins 8 caractères"
+                return
+            }
+            
+            if password != confirmMDP{
+                self.errorMessage = "Les mots de passe ne correspondent pas"
                 return
             }
         }
@@ -179,6 +184,64 @@ class LoginViewModel {
         guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
             throw URLError(.badServerResponse)
         }
+    }
+    
+    //update les info sensible du user
+    func updateInfoCurrentUser(with fields: UserInfo, confirmMDP: String?){
+        guard let token = token,
+              let url = URL(string: "http://localhost:8080/user/infos") else { return }
+        
+
+
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "PATCH"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        
+        if let mail = fields.email{
+            if mail.contains("@") == false || mail.contains(".") == false {
+                self.errorMessage = "Veuillez entrer un email valide"
+                return
+            }
+        }
+        
+        if let password = fields.newMdp{
+            if password.count < 8{
+                self.errorMessage = "Le mot de passe doit contenir au moins 8 caractères"
+                return
+            }
+            if password != confirmMDP{
+                self.errorMessage = "Les mots de passe ne correspondent pas"
+                return
+            }
+        }
+        
+        request.httpBody = try? JSONEncoder().encode(fields)
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error {
+                print("Erreur update:", error)
+                return
+            }
+            if let data = data {
+                
+//                let jsonString = String(data: data, encoding: .utf8)
+//                print(jsonString ?? "No JSON")
+
+                do {
+                    let updatedUser = try JSONDecoder().decode(User.self, from: data)
+                    DispatchQueue.main.async {
+                        self.currentUser = updatedUser
+                        self.errorMessage = "Tes informations ont bien été modifiées"
+                    }
+                    
+
+                } catch {
+                    print("Erreur décodage update:", error)
+                }
+            }
+        }.resume()
     }
     
     func updateCurrentUser(with fields: [String: Any]) {

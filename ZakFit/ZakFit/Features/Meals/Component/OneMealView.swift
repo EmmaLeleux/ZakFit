@@ -48,6 +48,7 @@ struct OneMealView: View {
                 if bouton{
                 NavigationLink(destination: {
                     MealDetailView(meal: $meal)
+                        .environment(mealVM)
                 }, label: {
                     Text(calories == 0 ? "ajouter" : "détails")
                     
